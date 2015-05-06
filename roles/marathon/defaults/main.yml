@@ -3,3 +3,13 @@
 marathon_port: 8080
 consul_dir: /etc/consul.d
 marathon_local_address: "{{ansible_eth0.ipv4.address}}"
+marathon_image: "mesosphere/marathon:v0.8.0"
+marathon_master_peers: "
+  {%- set marathon_peers = [] -%}
+  {%- for host in groups[marathon_server_group] -%}
+    {%- if host != inventory_hostname and host not in marathon_master_peers -%}
+      {% do marathon_master_peers.append(hostvars[host]['ansible_eth0']['ipv4']['address']':'zookeeper_client_port'/marathon') %}
+    {%- endif -%}
+  {%- endfor -%}
+  zk://{{ marathon_master_peers|join(',') }}
+"
