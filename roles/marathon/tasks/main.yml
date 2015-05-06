@@ -1,6 +1,10 @@
 # Install (docker-py) python package as is a docker module dependency.
 - pip: name=docker-py version=1.1.0
 
+
+- name: Monster
+  debug: msg="{{marathon_zk_peers}}"
+
 # tasks for running docker marathon
 - name: run marathon container
   when: marathon_enabled == "Y"
@@ -10,13 +14,13 @@
     state: started
     restart_policy: always
     net: host
-    command: "--master {{marathon_master_peers}} --zk {{marathon_master_peers}}"
+    command: "--master {{marathon_zk_peers}} --zk {{marathon_zk_peers}}"
     hostname: "{{ hostname }}"
     volumes:
     - "/var/run/docker.sock:/tmp/docker.sock"
 
-# tasks for stooping docker marathon
-- name: run marathon container
+# tasks for stoping docker marathon
+- name: stop marathon container
   when: marathon_enabled == "N"
   docker:
     name: marathon
