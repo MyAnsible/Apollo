@@ -28,13 +28,13 @@ If you find an issue belonging to any of the tools used by Apollo please, refer 
 
 * Submit a pull request.
 
-## Contributing to Apollo core Plugins
+## Contributing to Apollo Core Plugins
 
 Create a new issue describing your proposed change to the plugin repo.
 Fork the repo, develop and test your feature.
 Create a pull request.
 
-## Developing Apollo plugins
+## Developing Apollo Plugins
 
 We want Apollo to be as much pluggable as possible making contributions easier via core-agnostic plugins giving them freedom regarding isolation testing, development and release management.
 
