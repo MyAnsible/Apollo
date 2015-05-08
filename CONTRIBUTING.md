@@ -14,7 +14,7 @@ Apollo is built on top of several opensource tecnologies:
 * [Docker](http://docker.io) for application container runtimes
 * [Weave](https://github.com/zettio/weave) for networking of docker containers
 
-We want Apollo core to be as slim as possible providing a cloud agnostic mesos cluster with an autodiscovery system based on consul for multi-service tasks.
+We want Apollo core to be as slim as possible providing a cloud agnostic Mesos cluster with an autodiscovery system based on consul for multi-service tasks.
 
 This reduces the impact of core changes allowing the user customise Apollo behaviour via plugins for satisfying the requirements of a given project.
 
@@ -44,7 +44,7 @@ A new Apollo plugin is purely an Ansible role hooked into an Apollo deploy.
 
 For hooking up a new plugin e.g yet another framework on top of Mesos into Apollo you need to add your role in the plugins.yml and playbook.yml files.
 
-When creating a new plugin we are keen on using the ansible role for deploying mesos frameworks inside containers so we achieve total flexibility, reusability and portabilty across operating systems.
+When creating a new plugin we are keen on using the ansible role for deploying Mesos frameworks inside containers so we achieve total flexibility, reusability and portabilty across operating systems.
 
 ## Contributing a new Apollo Plugin
 
