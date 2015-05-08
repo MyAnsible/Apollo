@@ -9,4 +9,4 @@ packer/build
 .wercker
 *.cache
 ssh.config
-apollo-plugins
+plugins
