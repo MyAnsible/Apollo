@@ -14,9 +14,9 @@ Apollo is built on top of several opensource tecnologies:
 * [Docker](http://docker.io) for application container runtimes
 * [Weave](https://github.com/zettio/weave) for networking of docker containers
 
-We want Apollo core to be as much slim as possible providing a cloud agnostic mesos cluster with an autodiscovery system based on consul for multi-service tasks.
+We want Apollo core to be as slim as possible providing a cloud agnostic mesos cluster with an autodiscovery system based on consul for multi-service tasks.
 
-This reduce the impact of core changes allowing to the user customize Apollo behaviour via plugins for satisfying the requirements of a given project.
+This reduces the impact of core changes allowing the user customise Apollo behaviour via plugins for satisfying the requirements of a given project.
 
 If you find an issue belonging to any of the tools used by Apollo please, refer to the project in question.
 
@@ -24,7 +24,7 @@ If you find an issue belonging to any of the tools used by Apollo please, refer 
 
 * Submit an issue describing your proposed change to the Apollo repo.
 
-* Fork the repo if you are modifying an existing one, develop and test your feature.
+* Fork the repo, develop and test your feature.
 
 * Submit a pull request.
 
@@ -38,11 +38,11 @@ If you find an issue belonging to any of the tools used by Apollo please, refer 
 
 ## Developing Apollo Plugins
 
-We want Apollo to be as much pluggable as possible making contributions easier via core-agnostic plugins giving them freedom and flexibility regarding isolated testing, development and release management.
+We want Apollo to be as pluggable as possible making contributions easier via core-agnostic plugins giving them freedom and flexibility regarding isolated testing, development and release management.
 
-A new Apollo plugin is not more than a Ansible role hooked into an Apollo deploy.
+A new Apollo plugin is purely an Ansible role hooked into an Apollo deploy.
 
-For hooking up a new plugin e.g yet another framework on top of mesos into Apollo you need to add your role in the plugins.yaml and playbook.yml files.
+For hooking up a new plugin e.g yet another framework on top of Mesos into Apollo you need to add your role in the plugins.yml and playbook.yml files.
 
 When creating a new plugin we are keen on using ansible role for deploying mesos frameworks inside containers so we achieve total flexibility reusability and portabilty across operating systems.
 
