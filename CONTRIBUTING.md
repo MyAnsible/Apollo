@@ -44,7 +44,7 @@ A new Apollo plugin is purely an Ansible role hooked into an Apollo deploy.
 
 For hooking up a new plugin e.g yet another framework on top of Mesos into Apollo you need to add your role in the plugins.yml and playbook.yml files.
 
-When creating a new plugin we are keen on using ansible role for deploying mesos frameworks inside containers so we achieve total flexibility reusability and portabilty across operating systems.
+When creating a new plugin we are keen on using the ansible role for deploying mesos frameworks inside containers so we achieve total flexibility, reusability and portabilty across operating systems.
 
 ## Contributing a new Apollo Plugin
 
