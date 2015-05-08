@@ -32,7 +32,7 @@ ansible_playbook_run() {
       consul_atlas_infrastructure=${ATLAS_INFRASTRUCTURE} \
       consul_atlas_join=true \
       consul_atlas_token=${ATLAS_TOKEN} \
-      $(get_apollo_ansible_variables)" \
+      $(get_plugin_variables)" \
       -v \
     site.yml
   popd

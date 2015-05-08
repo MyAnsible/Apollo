@@ -6,7 +6,7 @@ get_ansible_requirements() {
   ansible-galaxy install -f -n -r plugins.yml
 }
 
-get_apollo_ansible_variables() {
+get_plugin_variables() {
   local plugin_namespace='APOLLO_PLUGIN_'
   local var_list=()
   for i in $(env | grep ${plugin_namespace}); do

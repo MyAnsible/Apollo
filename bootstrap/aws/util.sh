@@ -79,7 +79,7 @@ ansible_playbook_run() {
       consul_atlas_token=${ATLAS_TOKEN} \
       framework_marathon_enabled=${FRAMEWORK_MARATHON_ENABLED} \
       framework_marathon_version=${FRAMEWORK_MARATHON_VERSION} \"
-      $(get_apollo_ansible_variables)" \
+      $(get_plugin_variables)" \
       --sudo site.yml
   popd
 }
