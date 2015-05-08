@@ -28,7 +28,7 @@ If you find an issue belonging to any of the tools used by Apollo please, refer 
 
 * Submit a pull request.
 
-## Contributing to Apollo core Plugins.
+## Contributing to Apollo core Plugins
 
 Create a new issue describing your proposed change to the plugin repo.
 Fork the repo, develop and test your feature.
@@ -44,7 +44,7 @@ For hooking up a new plugin e.g yet another framework on top of mesos into Apoll
 
 When creating a new plugin we are keen on using ansible role for deploying mesos frameworks inside containers so we achieve total flexibility reusability and portabilty across operating systems.
 
-## Contributing a new Apollo Plugin.
+## Contributing a new Apollo Plugin
 
 * Apollo gives official support only for core plugins.
 
