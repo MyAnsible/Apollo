@@ -1,7 +1,7 @@
 How to contribute
 =================
 
-We love your contributions
+Apollo is based on an strong open-source philosophy so we would love your contributions.
 
 ## Apollo Core
 
