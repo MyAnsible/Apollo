@@ -38,7 +38,7 @@ If you find an issue belonging to any of the tools used by Apollo please, refer 
 
 ## Developing Apollo Plugins
 
-We want Apollo to be as much pluggable as possible making contributions easier via core-agnostic plugins giving them freedom regarding isolation testing, development and release management.
+We want Apollo to be as much pluggable as possible making contributions easier via core-agnostic plugins giving them freedom regarding isolated testing, development and release management.
 
 A new Apollo plugin is not more than a Ansible role hooked into an Apollo deploy.
 
