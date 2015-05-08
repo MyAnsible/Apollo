@@ -20,7 +20,7 @@ This reduce the impact of core changes allowing to the user customize Apollo beh
 
 If you find an issue belonging to any of the tools used by Apollo please, refer to the project in question.
 
-## Contributing to Apollo Core.
+## Contributing to Apollo Core
 
 * Submit an issue describing your proposed change to the Apollo repo.
 
