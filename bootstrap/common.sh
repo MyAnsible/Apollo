@@ -10,7 +10,7 @@ get_plugin_variables() {
   local plugin_namespace='APOLLO_PLUGIN_'
   local var_list=()
   for i in $(env | grep ${plugin_namespace}); do
-  	# This  Deletes shortest match of $substring from front of $string.${string#substring}
+  	# This deletes shortest match of $substring from front of $string. ${string#substring}
     var=${i#${plugin_namespace}}
     var_list+=(-var "$var")
   done
