@@ -22,9 +22,11 @@ If you find an issue belonging to any of the tools used by Apollo please, refer 
 
 ## Contributing to Apollo Core.
 
-Submit an issue describing your proposed change to the Apollo repo.
-Fork the repo if you are modifying an existing one, develop and test your feature.
-Submit a pull request.
+* Submit an issue describing your proposed change to the Apollo repo.
+
+* Fork the repo if you are modifying an existing one, develop and test your feature.
+
+* Submit a pull request.
 
 ## Contributing to Apollo core Plugins.
 
@@ -44,8 +46,8 @@ When creating a new plugin we are keen on using ansible role for deploying mesos
 
 ## Contributing a new Apollo Plugin.
 
-Apollo gives official support only for core plugins.
+* Apollo gives official support only for core plugins.
 
-If you think your plugin should be part of Apollo core plugins please create a new issue describing your feature, and explaining the motivation.
+* If you think your plugin should be part of Apollo core plugins please create a new issue describing your feature, and explaining the motivation.
 
-You can hook up your own plugins into Apollo even if they are not core plugins as explained in section above.
+* You can hook up your own plugins into Apollo even if they are not core plugins as explained in section above.
