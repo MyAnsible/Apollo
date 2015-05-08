@@ -5,7 +5,7 @@ We love your contributions
 
 ## Apollo Core
 
-Apollo is build on top of several opensource tecnologies:
+Apollo is built on top of several opensource tecnologies:
 
 * [Packer](https://packer.io) for automating the build of the base images
 * [Terraform](https://www.terraform.io/) for provisioning the infrastructure
