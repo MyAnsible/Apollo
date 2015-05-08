@@ -30,9 +30,11 @@ If you find an issue belonging to any of the tools used by Apollo please, refer 
 
 ## Contributing to Apollo Core Plugins
 
-Create a new issue describing your proposed change to the plugin repo.
-Fork the repo, develop and test your feature.
-Create a pull request.
+* Create a new issue describing your proposed change to the plugin repo.
+
+* Fork the repo, develop and test your feature.
+
+* Create a pull request.
 
 ## Developing Apollo Plugins
 
