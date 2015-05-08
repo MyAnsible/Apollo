@@ -5,7 +5,15 @@ We love your contributions
 
 ## Apollo Core
 
-Apollo is build on top of several opensource tecnologies i.e Packer, Vagrant, Terraform , mesos, ansible, docker, consul, weave.
+Apollo is build on top of several opensource tecnologies:
+
+* [Packer](https://packer.io) for automating the build of the base images
+* [Terraform](https://www.terraform.io/) for provisioning the infrastructure
+* [Apache Mesos](http://mesos.apache.org/) for cluster management, scheduling and resource isolation
+* [Consul](http://consul.io) for service discovery, DNS
+* [Docker](http://docker.io) for application container runtimes
+* [Weave](https://github.com/zettio/weave) for networking of docker containers
+
 We want Apollo core to be as much slim as possible providing a cloud agnostic mesos cluster with an autodiscovery system based on consul for multi-service tasks.
 
 This reduce the impact of core changes allowing to the user customize Apollo behaviour via plugins for satisfying the requirements of a given project.
