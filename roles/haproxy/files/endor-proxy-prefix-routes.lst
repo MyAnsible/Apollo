@@ -4,6 +4,7 @@
 # app-level route prefixes
 /locomotive
 /assets/font-awesome
+/assets/fonts/glyphicons
 /assets/locomotive
 /assets/select
 /images/dynamic
