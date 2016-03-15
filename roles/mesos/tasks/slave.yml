@@ -4,6 +4,15 @@
     path: /etc/init/mesos-slave.override
     state: absent
 
+- name: install mesos-slave upstart script
+  sudo: yes
+  copy:
+    dest: /etc/init/mesos-slave.conf
+    src: mesos-slave.conf
+    mode: 0644
+  notify:
+    - restart mesos slave
+
 - name: Set ZooKeeper URL
   sudo: yes
   copy:

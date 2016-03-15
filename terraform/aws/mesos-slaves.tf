@@ -1,6 +1,6 @@
 /* Base packer build we use for provisioning slave instances */
 resource "atlas_artifact" "mesos-slave" {
-  name    = "${var.atlas_artifact.slave}"
+  name    = "udacity/mesos-ubuntu-14.04-amd64"
   version = "26"
   type    = "aws.ami"
 }
@@ -53,10 +53,19 @@ resource "aws_instance" "mesos-slave-b" {
     volume_type           = "gp2"
     delete_on_termination = true
   }
+  /*
   ebs_block_device {
-    device_name = "/dev/sde"
+    device_name = "/dev/xvdo"
     volume_size = "${var.slave_block_device.volume_size}"
     volume_type = "gp2"
+    delete_on_termination = true
+  }
+  */
+  ebs_block_device {
+    device_name = "/dev/xvdo"
+    volume_size = "${var.slave_block_device.volume_size}"
+    volume_type = "io1"
+    iops = 3000
     delete_on_termination = true
   }
   connection {
@@ -67,9 +76,9 @@ resource "aws_instance" "mesos-slave-b" {
   }
   provisioner "remote-exec" {
     inline = [
-      "sudo mkfs -t ext4 -i 4096 -b 4096 -I 128 /dev/xvde",
-      "sudo mount /dev/xvde /var/lib/docker/overlay",
-      "echo '/dev/xvde	/var/lib/docker/overlay	ext4	defaults,nofail,nobootwait	0	2' | sudo tee -a /etc/fstab",
+      "sudo mkfs -t ext4 /dev/xvdo",
+      "sudo mount /dev/xvdo /var/lib/docker",
+      "echo '/dev/xvdo	/var/lib/docker	ext4	defaults,nofail,nobootwait	0	2' | sudo tee -a /etc/fstab",
     ]
   }
 }

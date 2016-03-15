@@ -7,15 +7,22 @@ set -o pipefail
 # available, Ubuntu actually doesn't get proper amounts of time to initialize.
 # The sleep makes sure that the OS properly initializes.
 sleep 30
+
 sudo add-apt-repository -y ppa:webupd8team/java
-sudo apt-get upgrade -y
 sudo apt-get update -y
 
-sudo apt-get -y install git curl auditd audispd-plugins libcurl3 bridge-utils bundler unzip wget python-setuptools python-protobuf cgroup-bin ruby2.0
-sudo easy_install pip==7.1.2
+if [ $(lsb_release -cs) = "wily" ];
+then
+  sudo apt-get -y install upstart-sysv
+  sudo update-initramfs -u
+  sudo rm /etc/dnsmasq.d/lxc
+  echo manual | sudo tee /etc/init/lxc-net.override >/dev/null
+fi
 
-sudo update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
-sudo update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
+sudo apt-get -y dist-upgrade
+
+sudo apt-get -y install git curl auditd audispd-plugins libcurl3 bridge-utils bundler unzip wget python-setuptools python-protobuf cgroup-bin ruby
+sudo easy_install pip==7.1.2
 
 # install java8
 echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
@@ -23,14 +30,14 @@ echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-se
 sudo apt-get install -y oracle-java8-installer
 echo 'networkaddress.cache.ttl=60' | sudo tee -a /usr/lib/jvm/java-8-oracle/jre/lib/security/java.security
 
-cat << EOF > /etc/security/limits.conf
+cat << EOF | sudo tee /etc/security/limits.conf
 * soft nofile 64000
 * hard nofile 64000
 root soft nofile 64000
 root hard nofile 64000
 EOF
 
-cat << EOF > /etc/sysctl.d/60-network.conf
+cat << EOF | sudo tee /etc/sysctl.d/60-network.conf
 fs.file-max = 100000
 
 # Increase the ipv4 port range:

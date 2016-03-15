@@ -17,7 +17,10 @@
       when: bastion_ip is not defined
 
 - hosts: all
-  tasks:
+  pre_tasks:
+    - name: update apt cache
+      apt:
+        update_cache: yes
     - name: set hostname to local ipv4 address
       sudo: Yes
       lineinfile:

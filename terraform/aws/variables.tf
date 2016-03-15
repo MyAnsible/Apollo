@@ -86,14 +86,14 @@ variable "elasticsearch_instances" {
 variable "slave_block_device" {
   description = "Block device for OSD."
   default = {
-    volume_size = 80
+    volume_size = 100
   }
 }
 
 variable "elasticsearch_block_device" {
   description = "Block device for elasticsearch."
   default = {
-    volume_size = 80
+    volume_size = 100
   }
 }
 

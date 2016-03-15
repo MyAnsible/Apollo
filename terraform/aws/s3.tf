@@ -72,9 +72,6 @@ EOF
     Cluster = "${var.cluster_name}"
   }
 
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "aws_s3_bucket_object" "logstash_config" {

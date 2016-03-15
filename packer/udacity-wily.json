@@ -1,0 +1,72 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
+    "mesos_version": "0.25.0-0.2.70.ubuntu1504",
+    "marathon_version": "v0.11.1",
+    "weave_version": "1.4.2",
+    "docker_version": "1.10.3-0~wily",
+    "version": "{{env `APOLLO_VERSION`}}",
+    "aws_region": "us-west-2",
+    "aws_source_ami": "ami-acd63bcc",
+    "aws_instance_type": "m4.large",
+    "timestamp": "{{isotime \"20060102150405\"}}"
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "ami_name": "udacity-mesos.{{user `mesos_version`}}.{{user `timestamp`}}",
+    "ami_description": "Ubuntu 15.10, Mesos {{user `mesos_version`}}, Docker, Marathon,  Weave {{user `weave_version`}}, and Zookeeper.",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "{{user `aws_region`}}",
+    "source_ami": "{{user `aws_source_ami`}}",
+    "ami_virtualization_type": "hvm",
+    "instance_type": "{{user `aws_instance_type`}}",
+    "ssh_username": "ubuntu",
+    "ssh_timeout": "10m",
+    "ami_regions": [],
+    "tags": {
+      "owner": "udacity",
+      "application": "mesos-host",
+      "version": "{{user `version`}}.{{user `timestamp`}}"
+    }
+  }],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "tests",
+      "destination": "/tmp"
+    },
+    {
+      "type": "shell",
+      "environment_vars": [
+        "WEAVE_VERSION={{user `weave_version`}}",
+        "MESOS_VERSION={{user `mesos_version`}}",
+        "MARATHON_VERSION={{user `marathon_version`}}",
+        "DOCKER_VERSION={{user `docker_version`}}"
+      ],
+      "scripts": [
+        "scripts/ubuntu/base.sh",
+        "scripts/common/sshd.sh",
+        "scripts/ubuntu/install_docker.sh",
+        "scripts/ubuntu/install_mesos.sh",
+        "scripts/common/install_weave.sh",
+        "scripts/ubuntu/install_datadog.sh",
+        "scripts/common/serverspec.sh"
+      ],
+      "execute_command": "{{ .Vars }} sudo  -E -S bash -c '{{ .Path }}'"
+    }
+  ],
+  "push": {
+    "name": "udacity/mesos-ubuntu-15-10-amd64"
+  },
+  "post-processors": [{
+    "type": "atlas",
+    "artifact": "udacity/mesos-ubuntu-15.10-amd64",
+    "artifact_type": "aws.ami",
+    "metadata": {
+      "created_at": "{{user `timestamp`}}",
+      "version": "{{user `version`}}.{{user `timestamp`}}"
+    }
+  }]
+}

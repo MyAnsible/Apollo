@@ -37,6 +37,7 @@ mesos_slave_config:
   - { name: "resources", value: "{{ mesos_slave_resources }}" }
   - { name: "work_dir", value: "{{ mesos_slave_work_dir }}" }
   - { name: "docker_socket", value: "{{ mesos_docker_socket }}" }
+  - { name: "docker_remove_delay", value: "6hrs" }
 
 mesos_slave_attributes:
   - { name: "az", value: "{{ availability_zone }}" }
