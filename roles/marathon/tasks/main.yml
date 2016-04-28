@@ -18,7 +18,7 @@
   tags:
     - marathon
 
-- name: upload .dockercfg to marathon artifact store
+- name: download .dockercfg from infrastructure bucket
   local_action:
     module: s3
     aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
@@ -30,6 +30,19 @@
   tags:
     - marathon
 
+- name: upload .dockercfg to cluster bucket
+  local_action:
+    module: s3
+    aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+    aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+    bucket: "udacity-{{ mesos_cluster_name }}"
+    object: .dockercfg
+    src: /tmp/.dockercfg
+    mode: put
+  tags:
+    - marathon
+
+# NOTE: This is for backwards compatibility with existing conductor.json files referencing the artifact store
 - name: upload .dockercfg to artifacts dir
   copy:
     src: /tmp/.dockercfg
