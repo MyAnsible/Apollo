@@ -18,6 +18,41 @@
   tags:
     - marathon
 
+- name: download .dockercfg from infrastructure bucket
+  local_action:
+    module: s3
+    aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+    aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+    bucket: "{{ s3_infrastructure_bucket_private }}"
+    object: /etc/marathon/.dockercfg
+    dest: /tmp/.dockercfg
+    mode: get
+  tags:
+    - marathon
+
+- name: upload .dockercfg to cluster bucket
+  local_action:
+    module: s3
+    aws_access_key: "{{ lookup('env','AWS_ACCESS_KEY_ID') }}"
+    aws_secret_key: "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}"
+    bucket: "udacity-{{ mesos_cluster_name }}"
+    object: .dockercfg
+    src: /tmp/.dockercfg
+    mode: put
+  tags:
+    - marathon
+
+# NOTE: This is for backwards compatibility with existing conductor.json files referencing the artifact store
+- name: upload .dockercfg to artifacts dir
+  copy:
+    src: /tmp/.dockercfg
+    dest: "{{ marathon_artifact_store_dir }}/etc/.dockercfg"
+    mode: 0644
+    force: yes
+  sudo: yes
+  tags:
+    - marathon
+
 - name: destroy old marathon container
   when: marathon_rebuild_container
   docker:
