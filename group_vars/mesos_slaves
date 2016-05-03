@@ -23,6 +23,11 @@ datadog_checks:
         # Collect images stats
         # Number of available active images and intermediate images as gauges. Default: true.
         collect_images_stats: false
+
+        collect_labels_as_tags:
+          - "com.udacity.name"
+          - "com.udacity.version"
+          - "com.udacity.env"
   consul:
     init_config:
     instances:
