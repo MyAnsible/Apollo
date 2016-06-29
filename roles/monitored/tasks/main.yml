@@ -5,3 +5,72 @@
     dest: /etc/rsyslog.d/logstash.conf
     mode: 0644
   notify: restart rsyslog
+
+- name: upload logspout template service
+  template:
+    src: logspout.conf.j2
+    dest: /etc/init/logspout.conf
+    mode: 0755
+  sudo: yes
+  tags:
+    - logspout
+
+- name: destroy old logspout container
+  when: logspout_rebuild_container
+  docker:
+    name: logspout
+    image: "{{ logspout_image }}"
+    state: absent
+  tags:
+    - logspout
+
+# tasks file for docker registrator
+- name: create logspout container
+  docker:
+    name: logspout
+    image: "{{ logspout_image }}"
+    state: present
+    restart_policy: always
+    net: host
+    env:
+      LOGPOUT: ignore
+      PORT: "{{ logspout_port }}"
+    volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock"
+  environment: proxy_env
+  tags:
+    - logspout
+
+- name: ensure logspout is running (and enable it at boot)
+  sudo: yes
+  service:
+    name: logspout
+    state: started
+    enabled: yes
+  tags:
+    - logspout
+
+- wait_for:
+    port: "{{ logspout_port }}"
+
+### Can't use because of bug in current version of ansible
+#- name: pip httplib2
+#  pip: name=httplib2 extra_args="--user"
+#  tags:
+#    - logspout
+#
+#- name: create routes
+#  uri:
+#    url: "http://localhost:{{ logspout_port }}/routes"
+#    method: POST
+#    body: "{{ item | to_json }}"
+#    HEADER_Content-Type: "application/json"
+#  with_items: logspout_routes
+#  tags:
+#    - logspout
+
+- name: create routes
+  command: "curl -X POST -H 'Content-Type: application/json' -d '{{ item | to_json }}' http://localhost:{{ logspout_port }}/routes"
+  with_items: logspout_routes
+  tags:
+    - logspout
