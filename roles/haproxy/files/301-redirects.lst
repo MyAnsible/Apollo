@@ -2,3 +2,5 @@
 # <SRC> <TARGET>
 learn.udacity.com classroom.udacity.com
 berlioz-dev.udacity.com hello-test.udacity.com
+registrar-window.udacity.com students.udacity.com
+registrar-window-api.udacity.com students-api.udacity.com
