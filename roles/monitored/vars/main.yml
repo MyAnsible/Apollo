@@ -1,5 +1,3 @@
-body:
-  _hack: null  # an extra key with null value, which fails `utils.safe_eval`
 logspout_routes:
   - id: "main"
     adapter: "logstash"
