@@ -21,3 +21,6 @@ $ActionExecOnlyWhenPreviousIsSuspended on
 & @@logstash.service.consul:5500;ls_json
 & /var/log/localbuffer
 $ActionExecOnlyWhenPreviousIsSuspended off
+
+# Disable, causes timestamp issues in syslog
+$RepeatedMsgReduction off
