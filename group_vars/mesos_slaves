@@ -84,9 +84,8 @@ datadog_checks:
         # How it works: if a tag matches an exclude rule, it won't be included
         # unless it also matches an include rule.
         # e.g. include ONLY these two services
-        # services_include:
-        #   - "backend"
-        #   - "test"
+        services_include:
+          - ".*_backend"
         # services_exclude:
         #   - ".*"
         #
