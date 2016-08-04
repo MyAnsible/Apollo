@@ -88,6 +88,7 @@
     --net=host
     --restart=always
     --log-driver=syslog
+    --ulimit core=-1
     -p 0.0.0.0:80:80/tcp
     -p 0.0.0.0:34180:34180/tcp
     -e HAPROXY_DOMAIN="{{ haproxy_domain }}"
@@ -100,6 +101,7 @@
     -e CONSUL_MAXWAIT=30s
     -e SERVICE_NAME=haproxy
     -e SSL_CERT=/etc/ssl/private/star_udacity_com.pem
+    -e LOGSPOUT=ignore
     -v "/dev/log:/dev/log:rw"
     -v "{{ consul_template_dir }}/config:/config:rw"
     -v "{{ consul_template_dir }}/templates:/templates:rw"

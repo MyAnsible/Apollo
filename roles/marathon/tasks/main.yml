@@ -43,6 +43,14 @@
     - marathon
 
 # NOTE: This is for backwards compatibility with existing conductor.json files referencing the artifact store
+- name: create marathon artifact folder
+  file:
+    path: "{{ marathon_artifact_store_dir }}/etc"
+    state: directory
+    mode: 0755
+    recurse: yes
+  tags:
+    - marathon
 - name: upload .dockercfg to artifacts dir
   copy:
     src: /tmp/.dockercfg
@@ -76,6 +84,7 @@
     -v {{ marathon_artifact_store_dir }}:/store
     -e JAVA_OPTS="{{ marathon_java_settings }}"
     -e SERVICE_IGNORE=yes
+    -e LOGSPOUT=ignore
     {{marathon_image}}
     {{marathon_command}}
   register: command_result

@@ -1,0 +1,10 @@
+logspout_routes:
+  - id: "main"
+    adapter: "logstash"
+    address: "logstash.service.consul:5511"
+    options:
+      transport: "tcp"
+      pattern: '(^\s)|(^Caused by:)'
+      group_with: "previous"
+      max_lines: "1024"
+      cache_ttl: "10s"

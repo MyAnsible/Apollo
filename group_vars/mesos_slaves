@@ -84,9 +84,8 @@ datadog_checks:
         # How it works: if a tag matches an exclude rule, it won't be included
         # unless it also matches an include rule.
         # e.g. include ONLY these two services
-        # services_include:
-        #   - "backend"
-        #   - "test"
+        services_include:
+          - ".*_backend"
         # services_exclude:
         #   - ".*"
         #
@@ -94,3 +93,21 @@ datadog_checks:
         # services_include: []
         # services_exclude:
         #   - "thisone"
+
+  go_expvar:
+    init_config:
+    instances:
+      # Most memstats metrics are exported by default
+      # See http://godoc.org/runtime#MemStats for their explanation
+      - expvar_url: http://localhost:8081/debug/metrics
+        tags:
+          - com.udacity.name:logspout
+        metrics:
+          # These metrics are just here as examples.
+          # Most memstats metrics are collected by default without configuration needed.
+          - path: main_cached_lines
+            type: gauge
+            alias: go_expvar.logstash.main_cached_lines
+          - path: logstash_message_rate.count
+            type: rate
+            alias: go_expvar.logstash.message_rate

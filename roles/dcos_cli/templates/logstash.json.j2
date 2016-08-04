@@ -5,26 +5,28 @@
   "instances": {{ dcos_cli_app_logstash_instances }},
   "constraints": [["hostname", "UNIQUE"], ["az", "GROUP_BY", "3"]],
   "env": {
-    "SERVICE_NAME": "logstash",
-    "SERVICE_TAGS": "elasticsearch,logstash,monitoring"
+    "SERVICE_5511_NAME": "logstash",
+    "SERVICE_5511_TAGS": "elasticsearch,logstash,monitoring",
+    "LS_HEAP_SIZE": "2048m"
   },
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "logstash:1.5.2",
+      "image": "logstash:2.3.3",
       "network": "BRIDGE",
       "parameters": [
         { "key": "log-opt", "value": "max-size=64m" },
         { "key": "log-opt", "value": "max-file=8" }
       ],
       "portMappings": [
-        { "containerPort": 5500, "hostPort": 0, "servicePort": 5500, "protocol": "tcp" },
-        { "containerPort": 5544, "hostPort": 0, "servicePort": 5544, "protocol": "udp" }
+        { "containerPort": 5511, "hostPort": 0, "protocol": "tcp" }
       ]
     }
   },
   "args": [
-    "logstash", "-f", "/mnt/mesos/sandbox/{{ dcos_cli_app_logstash_conf_file }}"
+    "logstash",
+    "--config", "/mnt/mesos/sandbox/{{ dcos_cli_app_logstash_conf_file }}",
+    "--pipeline-workers", "4"
   ],
   "uris": [
     "{{ dcos_cli_app_logstash_conf_url }}"

@@ -1,0 +1,12 @@
+description "logspout container"
+
+start on started docker
+stop on stopping docker
+
+script
+  /usr/bin/docker start -a logspout
+end script
+
+respawn
+respawn limit 100 5
+kill timeout 15

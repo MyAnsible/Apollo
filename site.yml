@@ -69,10 +69,6 @@
   roles:
     - { role: datadog-agent, tags: ["monitoring"] }
 
-- hosts: all:!bastion:!elasticsearch
-  roles:
-    - { role: monitored, tags: ["monitoring"] }
-
 - hosts: load_balancers
   roles:
     - { role: haproxy, tags: ["haproxy"] }
@@ -86,6 +82,10 @@
     - { role: dcos_cli, tags: ["apps"] }
   vars_files:
     - roles/prometheus/defaults/main.yml
+
+- hosts: all:!bastion:!elasticsearch
+  roles:
+    - { role: monitored, tags: ["monitoring"] }
 
 - include: tests/test.yml
   vars_files:
