@@ -101,6 +101,7 @@ frontend logger
     capture request header X-Haproxy-ACL len 256
     capture request header X-Unique-ID len 64
     capture request header X-Forwarded-For len 64
+    capture request header origin len 128
 
     # Check for 301 redirect
     acl has_redirect hdr(host),map(/etc/haproxy/301-redirects.lst) -m found
@@ -108,7 +109,13 @@ frontend logger
 
     # Inject X-Berlioz-Country header with two-letter country code (see NI-461)
     http-request set-header X-Berlioz-Country %[req.hdr(X-Forwarded-For,-1),map_ip(/etc/haproxy/geolocation.txt)]
+
+    # Inject X-Berlioz-Country in response headers for *.udacity.com
     http-response set-header X-Berlioz-Country %[capture.req.hdr(5),map_ip(/etc/haproxy/geolocation.txt)]
+    acl is_trusted_domain capture.req.hdr(6) -m end udacity.com
+    http-response add-header Access-Control-Allow-Headers X-Berlioz-Country
+    http-response add-header Access-Control-Expose-Headers X-Berlioz-Country
+    http-response set-header Access-Control-Allow-Origin * if is_trusted_domain 
 
     # Gzip
     compression algo gzip
