@@ -74,3 +74,12 @@
   with_items: logspout_routes
   tags:
     - logspout
+
+- name: restart logspout container so create routes is idempotent
+  docker:
+    name: logspout
+    image: "{{ logspout_image }}"
+    state: restarted
+  environment: proxy_env
+  tags:
+    - logspout
