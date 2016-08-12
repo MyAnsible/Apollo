@@ -101,7 +101,7 @@ frontend logger
     capture request header X-Haproxy-ACL len 256
     capture request header X-Unique-ID len 64
     capture request header X-Forwarded-For len 64
-    capture request header origin len 128
+    capture request header Origin len 128
 
     # Check for 301 redirect
     acl has_redirect hdr(host),map(/etc/haproxy/301-redirects.lst) -m found
