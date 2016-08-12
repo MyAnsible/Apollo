@@ -115,7 +115,7 @@ frontend logger
     acl is_trusted_domain capture.req.hdr(6) -m end udacity.com
     http-response add-header Access-Control-Allow-Headers X-Berlioz-Country
     http-response add-header Access-Control-Expose-Headers X-Berlioz-Country
-    http-response set-header Access-Control-Allow-Origin %[capture.req.hdr(5)] if is_trusted_domain 
+    http-response set-header Access-Control-Allow-Origin %[capture.req.hdr(6)] if is_trusted_domain 
 
     # Gzip
     compression algo gzip
