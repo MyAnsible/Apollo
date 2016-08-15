@@ -103,6 +103,7 @@ frontend logger
     capture request header X-Forwarded-For len 64
     capture request header Origin len 128
 
+
     # Check for 301 redirect
     acl has_redirect hdr(host),map(/etc/haproxy/301-redirects.lst) -m found
     http-request redirect prefix https://%[hdr(host),map(/etc/haproxy/301-redirects.lst)] code 301 if has_redirect
@@ -116,6 +117,7 @@ frontend logger
     http-response add-header Access-Control-Allow-Headers X-Berlioz-Country
     http-response add-header Access-Control-Expose-Headers X-Berlioz-Country
     http-response set-header Access-Control-Allow-Origin %[capture.req.hdr(6)] if is_trusted_domain 
+    http-response set-header Access-Control-Allow-Credentials true if is_trusted_domain
 
     # Gzip
     compression algo gzip
