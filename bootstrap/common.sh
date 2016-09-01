@@ -164,7 +164,7 @@ run_terraform() {
       -var "atlas_artifact_version.slave=${TF_VAR_atlas_artifact_version_slave}" \
       -var "atlas_artifact.master=${TF_VAR_atlas_artifact_master}" \
       -var "atlas_artifact.slave=${TF_VAR_atlas_artifact_slave}" \
-      ${TF_ARGS}
+      ${TF_ARGS:-}
   popd
 }
 
