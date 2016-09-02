@@ -1,6 +1,6 @@
 global
     maxconn {{or (key "service/haproxy/maxconn") 2048}}
-    log /dev/log local0 debug
+    log /dev/log len {{or (key "service/haproxy/maxloglength") 65535}} local0 debug
     tune.ssl.default-dh-param 2048
 
 defaults

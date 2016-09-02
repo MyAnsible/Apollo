@@ -1,3 +1,4 @@
 logspout_rebuild_container: False
 logspout_image: "udacity/logspout:v1.1"
 logspout_port: 8081
+rsyslog_MaxMessageSize: "64K"

@@ -5,6 +5,18 @@
     dest: /etc/rsyslog.d/logstash.conf
     mode: 0644
   notify: restart rsyslog
+  tags:
+    - rsyslog
+
+- name: increase syslog max message size
+  sudo: yes
+  lineinfile:
+    dest: /etc/rsyslog.conf
+    regexp: "^\\$MaxMessageSize"
+    line: "$MaxMessageSize {{ rsyslog_MaxMessageSize }}"
+  notify: restart rsyslog
+  tags:
+    - rsyslog
 
 - name: upload logspout template service
   template:
