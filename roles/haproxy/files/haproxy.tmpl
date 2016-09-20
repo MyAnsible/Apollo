@@ -52,10 +52,6 @@ frontend www-https
     option http-server-close
     reqadd X-Forwarded-Proto:\ https
 
-    # X-Unique-ID header in requests
-    unique-id-format %{+X}o\ %ci:%cp_%fi:%fp_%Ts_%rt:%pid
-    unique-id-header X-Unique-ID
-
     # route through logger
     no log
     default_backend logger
@@ -63,6 +59,10 @@ frontend www-https
 # Logging frontend
 frontend logger
     bind localhost:55555 accept-proxy
+
+    # X-Unique-ID header in requests
+    unique-id-format %{+X}o\ %ci:%cp_%fi:%fp_%Ts_%rt:%pid
+    unique-id-header X-Unique-ID
 
     # %pid: process ID of HAProxy
     # %Ts.%ms: unix timestamp + milliseconds
@@ -93,7 +93,7 @@ frontend logger
     # %U: bytes read from the client (request size)
     # %B: bytes read from server to client (response size)
 #    log-format [%pid]\ [%Ts.%ms]\ %ac/%fc/%bc/%bq/%sc/%sq/%rc\ %Tq/%Tw/%Tc/%Tr/%Tt\ %tsc\ %ci:%cp\ %si:%sp\ %ft\ %sslc\ %sslv\ %{+Q}r\ %ST\ %b:%s\ "%CC"\ "%hr"\ "%CS"\ "%hs"\ req_size=%U\ resp_size=%B
-    log-format {\"type\":\"syslogjson\",\"timestamp\":%Ts.%ms,\"pid\":%pid,\"num_concurrent_conn\":%ac,\"num_concurrent_conn_fe\":%fc,\"num_concurrent_conn_be\":%bc,\"backend_queue_size\":%bq,\"num_concurrent_conn_server\":%sc,\"server_queue_size\":%sq,\"server_conn_retries\":%rc,\"client_req_time\":%Tq,\"queue_wait_time\":%Tw,\"upstream_conn_time\":%Tc,\"session_duration\":%Tt,\"http_status\":%ST,\"http_req\":\"%r\",\"client_ip\":\"%ci\",\"client_port\":\"%cp\",\"server_ip\":\"%si\",\"server_port\":\"%sp\",\"bytes_read\":%B,\"backend_name\":\"%b\",\"retries\":%rc,\"bytes_uploaded\":%U,\"upstream_response_time\":\"%Tr\",\"upstream_connect_time\":\"%Tc\",\"session_duration\":\"%Tt\",\"termination_state\":\"%ts\"}
+    log-format {\"type\":\"syslogjson\",\"timestamp\":%Ts.%ms,\"pid\":%pid,\"num_concurrent_conn\":%ac,\"num_concurrent_conn_fe\":%fc,\"num_concurrent_conn_be\":%bc,\"backend_queue_size\":%bq,\"num_concurrent_conn_server\":%sc,\"server_queue_size\":%sq,\"server_conn_retries\":%rc,\"client_req_time\":%Tq,\"queue_wait_time\":%Tw,\"upstream_conn_time\":%Tc,\"session_duration\":%Tt,\"http_status\":%ST,\"http_req\":\"%r\",\"client_ip\":\"%ci\",\"client_port\":\"%cp\",\"server_ip\":\"%si\",\"server_port\":\"%sp\",\"bytes_read\":%B,\"backend_name\":\"%b\",\"retries\":%rc,\"bytes_uploaded\":%U,\"upstream_response_time\":\"%Tr\",\"upstream_connect_time\":\"%Tc\",\"session_duration\":\"%Tt\",\"termination_state\":\"%ts\",\"unique_req_id\":\"%ID\"}
     log global
 
     capture request header Referrer len 64
